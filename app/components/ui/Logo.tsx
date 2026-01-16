@@ -7,6 +7,6 @@ export default function Logo(){
         size={30}
         strokeWidth={0}
       />
-        <span className="text-foreground font-medium text-lg">Flightly</span>
+        <span className="text-foreground font-medium text-lg hidden [@media(min-width:480px)]:flex">Flightly</span>
     </div>
 }
