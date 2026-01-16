@@ -1,5 +1,5 @@
 export default function Home() {
   return (
-    <h1>Hello Flightly</h1>
+    <h1 className="font-medium">All available flights</h1>
   );
 }
