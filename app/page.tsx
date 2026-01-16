@@ -1,5 +1,9 @@
+import { Button } from "@/components/ui/button";
+import Header from "./components/layout/header";
+
+
 export default function Home() {
   return (
-    <h1 className="font-medium">All available flights</h1>
+    <Header />
   );
 }
