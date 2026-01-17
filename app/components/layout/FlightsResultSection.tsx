@@ -37,7 +37,7 @@ export default function FlightsResultSection() {
         const data: FlightResponse = await res.json();
         setFlights(data.data || []);
       } catch (err) {
-        setError("Something went wrong while fetching flights");
+        setError(`Something went wrong while fetching flights ${err}`,);
       } finally {
         setLoading(false);
       }
