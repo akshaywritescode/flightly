@@ -4,6 +4,8 @@ import { ToLocationInput } from "../ui/ToLocationInput";
 import { ArrowLeftRight } from "lucide-react";
 import SearchFlightBtn from "../ui/SearchFlightBtn";
 import { TripTypeSelector } from "../ui/TripTypeSwitcher";
+import { DepartureDatePicker } from "../ui/DepartureDatePicker";
+import { ReturnDatePicker } from "../ui/ReturnDatePicker";
 
 export default function FlightSearchCard() {
   return (
@@ -14,9 +16,15 @@ export default function FlightSearchCard() {
           <ArrowLeftRight size={18} className="text-black/70" />
           <ToLocationInput />
         </div>
+        <div className="flex gap-2">
+          <DepartureDatePicker />
+          <ReturnDatePicker />
+        </div>
+      </div>
+      <div className="flex justify-between">
+        <TripTypeSelector />
         <SearchFlightBtn />
       </div>
-      <TripTypeSelector />
     </Card>
   );
 }
