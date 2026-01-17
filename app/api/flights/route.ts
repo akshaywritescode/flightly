@@ -7,6 +7,7 @@ export async function GET(req: Request) {
   const origin = searchParams.get("origin");
   const destination = searchParams.get("destination");
   const date = searchParams.get("date");
+  const currencyCode = searchParams.get("currencyCode");
 
   if (!origin || !destination || !date) {
     return NextResponse.json(
@@ -17,12 +18,16 @@ export async function GET(req: Request) {
 
   const token = await getAmadeusToken();
 
-  const url =
-    "https://test.api.amadeus.com/v2/shopping/flight-offers" +
-    `?originLocationCode=${origin}` +
-    `&destinationLocationCode=${destination}` +
-    `&departureDate=${date}` +
-    `&adults=1`;
+  const params = new URLSearchParams({
+  originLocationCode: origin,
+  destinationLocationCode: destination,
+  departureDate: date,
+  adults: "1",
+  currencyCode: currencyCode ?? "USD",
+})
+
+const url = `https://test.api.amadeus.com/v2/shopping/flight-offers?${params.toString()}`
+
 
   const res = await fetch(url, {
     headers: {
