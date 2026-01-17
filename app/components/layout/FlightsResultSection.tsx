@@ -3,11 +3,17 @@
 import { useEffect, useState } from "react";
 import FlightResultCard from "./FlightResultCard";
 import formatFlightDateTime from "@/lib/formatFlightDateTime";
+import type { FlightOffer, Dictionaries } from "@/app/types/flight-search.types";
 
 
-type FlightResponse = {
-  data: any[];
+export type FlightResponse = {
+  data: FlightOffer[];
+  dictionaries?: Dictionaries;
+  meta?: {
+    count: number;
+  };
 };
+
 
 export default function FlightsResultSection() {
   const [flights, setFlights] = useState<any[]>([]);
