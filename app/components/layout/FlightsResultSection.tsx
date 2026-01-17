@@ -16,7 +16,7 @@ export type FlightResponse = {
 
 
 export default function FlightsResultSection() {
-  const [flights, setFlights] = useState<any[]>([]);
+  const [flights, setFlights] = useState<FlightOffer[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
