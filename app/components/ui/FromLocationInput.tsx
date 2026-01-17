@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { Check, ChevronsUpDown } from "lucide-react";
+import { Check, PlaneTakeoff } from "lucide-react";
 
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
@@ -18,24 +18,23 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import { PlaneTakeoff } from "lucide-react";
 
 const suggestedAirports = [
-  { value: "DEL - New Delhi, India" },
-  { value: "BOM - Mumbai, India" },
-  { value: "BLR - Bengaluru, India" },
-  { value: "HYD - Hyderabad, India" },
-  { value: "MAA - Chennai, India" },
-  { value: "CCU - Kolkata, India" },
-  { value: "DXB - Dubai, UAE" },
-  { value: "LHR - London Heathrow, UK" },
-  { value: "JFK - New York JFK, USA" },
-  { value: "SIN - Singapore Changi, Singapore" },
+  { displayName: "DEL - New Delhi, India", value: "DEL" },
+  { displayName: "BOM - Mumbai, India", value: "BOM" },
+  { displayName: "BLR - Bengaluru, India", value: "BLR" },
+  { displayName: "HYD - Hyderabad, India", value: "HYD" },
+  { displayName: "MAA - Chennai, India", value: "MAA" },
+  { displayName: "CCU - Kolkata, India", value: "CCU" },
+  { displayName: "DXB - Dubai, UAE", value: "DXB" },
+  { displayName: "LHR - London Heathrow, UK" , value: "LHR"},
+  { displayName: "JFK - New York JFK, USA", value: "JFK" },
+  { displayName: "SIN - Singapore Changi, Singapore", value: "SIN" },
 ];
 
 export function FromLocationInput() {
   const [open, setOpen] = React.useState(false);
-  const [value, setValue] = React.useState("BOM - Mumbai, India");
+  const [value, setValue] = React.useState("BOM");
 
   return (
     <Popover open={open} onOpenChange={setOpen}>
@@ -49,10 +48,9 @@ export function FromLocationInput() {
           {value
             ? (() => {
                 const c = suggestedAirports.find((c) => c.value === value);
-                return <div className="flex gap-4"><PlaneTakeoff /> {c?.value}</div>
+                return <div className="flex gap-4 text-xs"><PlaneTakeoff /> {c?.displayName}</div>
               })()
             : "From"}
-          <ChevronsUpDown className="opacity-50" />
         </Button>
       </PopoverTrigger>
 
@@ -71,7 +69,7 @@ export function FromLocationInput() {
                     setOpen(false);
                   }}
                 >
-                 <div className="flex gap-4"><PlaneTakeoff /> {airport.value}</div> 
+                 <div className="flex gap-4 text-xs"><PlaneTakeoff /> {airport.displayName}</div> 
                   <Check
                     className={cn(
                       "ml-auto",
