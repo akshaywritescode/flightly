@@ -7,6 +7,7 @@ import type {
   FlightOffer,
   Dictionaries,
 } from "@/app/types/flights.types";
+import { getMealInfo } from "@/lib/hasMeal";
 
 
 type FlightsResultSectionProps = {
@@ -36,6 +37,7 @@ export default function FlightsResultSection({
 
           const dep = segments[0];
           const arr = segments[segments.length - 1];
+          const mealInfo = getMealInfo(flight);
 
           return (
             <FlightResultCard
@@ -45,6 +47,7 @@ export default function FlightsResultSection({
               departureDateTime={formatFlightDateTime(dep.departure.at)}
               arrivalDateTime={formatFlightDateTime(arr.arrival.at)}
               price={flight.price?.total}
+              mealInfo={mealInfo}
             />
           );
         })}
