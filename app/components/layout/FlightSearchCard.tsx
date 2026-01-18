@@ -10,7 +10,6 @@ import { DepartureDatePicker } from "../ui/DepartureDatePicker";
 import { ReturnDatePicker } from "../ui/ReturnDatePicker";
 import { useState } from "react";
 import { LocationOption } from "@/app/types/location.types";
-import { Button } from "@/components/ui/button";
 
 type FlightSearchCardProps = {
   onSearch: (params: {
@@ -20,16 +19,24 @@ type FlightSearchCardProps = {
     returnDate?: Date;
     tripType: "oneway" | "roundtrip";
   }) => void;
+
+   fromLocation: LocationOption | null;
+  toLocation: LocationOption | null;
+  onFromChange: (loc: LocationOption | null) => void;
+  onToChange: (loc: LocationOption | null) => void;
 };
 
 
-export default function FlightSearchCard({ onSearch }: FlightSearchCardProps) {
-
+export default function FlightSearchCard({
+  onSearch,
+  fromLocation,
+  toLocation,
+  onFromChange,
+  onToChange,
+}: FlightSearchCardProps) {
   const [tripType, setTripType] = useState<"oneway" | "roundtrip">("oneway");
   const [departureDate, setDepartureDate] = useState<Date | undefined>();
   const [returnDate, setReturnDate] = useState<Date | undefined>();
-  const [fromLocation, setFromLocation] = useState<LocationOption | null>(null);
-  const [toLocation, setToLocation] = useState<LocationOption | null>(null);
 
   const canSearch =
     fromLocation &&
@@ -37,28 +44,26 @@ export default function FlightSearchCard({ onSearch }: FlightSearchCardProps) {
     departureDate &&
     (tripType === "oneway" || returnDate);
 
-
   return (
     <Card className="rounded-xl p-6 flex flex-col gap-4">
       <div className="w-full flex justify-between">
-        {/* Location Selection */}
         <div className="flex items-center gap-5">
-          <FromLocationInput value={fromLocation} onChange={setFromLocation} />
+          <FromLocationInput value={fromLocation} onChange={onFromChange} />
           <ArrowLeftRight size={18} className="text-black/70" />
-          <ToLocationInput value={toLocation} onChange={setToLocation} />
+          <ToLocationInput value={toLocation} onChange={onToChange} />
         </div>
-        {/* Date Sleection */}
+
         <div className="flex gap-2">
           <DepartureDatePicker
             value={departureDate}
             onChange={(date) => {
               setDepartureDate(date);
-              // if return date less than departure date
               if (returnDate && date && returnDate < date) {
                 setReturnDate(undefined);
               }
             }}
           />
+
           <ReturnDatePicker
             value={returnDate}
             onChange={setReturnDate}
@@ -66,24 +71,24 @@ export default function FlightSearchCard({ onSearch }: FlightSearchCardProps) {
           />
         </div>
       </div>
-      <div className="flex justify-between">
-        {/* Tryp Type Selection */}
-        <TripTypeSelector value={tripType} onChange={setTripType} />
-        {/* Search flights button */}
-        <SearchFlightBtn
-        disabled={!canSearch}
-        onClick={() => {
-          if (!canSearch) return;
 
-          onSearch({
-            from: fromLocation!,
-            to: toLocation!,
-            departureDate,
-            returnDate,
-            tripType,
-          });
-        }}
-      />
+      <div className="flex justify-between">
+        <TripTypeSelector value={tripType} onChange={setTripType} />
+
+        <SearchFlightBtn
+          disabled={!canSearch}
+          onClick={() => {
+            if (!canSearch) return;
+
+            onSearch({
+              from: fromLocation!,
+              to: toLocation!,
+              departureDate: departureDate!,
+              returnDate,
+              tripType,
+            });
+          }}
+        />
       </div>
     </Card>
   );
