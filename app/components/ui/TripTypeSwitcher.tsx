@@ -5,7 +5,7 @@ export function TripTypeSelector() {
   return (
     <RadioGroup
       defaultValue="oneway"
-      className="flex gap-6"
+      className="flex gap-6 ml-2"
     >
       <div className="flex items-center gap-2">
         <RadioGroupItem value="oneway" id="oneway" />
