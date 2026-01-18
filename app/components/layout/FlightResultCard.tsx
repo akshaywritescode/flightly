@@ -16,6 +16,9 @@ type FlightResultCardProps = {
     hasMeal: boolean;
     isFree: boolean;
   };
+  carrierCode: string;
+  carrierName: string;
+  flightNumber: string;
 };
 
 export default function FlightResultCard({
@@ -24,7 +27,10 @@ export default function FlightResultCard({
   price,
   departureDateTime,
   arrivalDateTime,
-  mealInfo
+  mealInfo,
+  carrierCode,
+  carrierName,
+  flightNumber,
 }: FlightResultCardProps) {
   return (
     <Card className="flex justify-between w-[100%]">
@@ -71,10 +77,8 @@ export default function FlightResultCard({
           <div className="flex gap-2 items-center">
             <div>
               <Image
-                src={
-                  "https://images.ixigo.com/img/common-resources/airline-new/6E.png"
-                }
-                alt="airline-logo"
+                src={`https://images.ixigo.com/img/common-resources/airline-new/${carrierCode}.png`}
+                alt={`${carrierName} logo`}
                 width={40}
                 height={40}
                 quality={100}
@@ -82,8 +86,8 @@ export default function FlightResultCard({
               />
             </div>
             <div>
-              <h3 className="font-medium">IndiGo</h3>
-              <p className="text-sm">6E5322</p>
+              <h3 className="font-medium">{carrierName}</h3>
+              <p className="text-sm">{flightNumber}</p>
             </div>
           </div>
           <div className="flex items-center gap-10">
