@@ -11,7 +11,11 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover"
 
-export function ReturnDatePicker() {
+type TReturnDatePicker = {
+  tripType: "oneway" | "roundtrip"
+}
+
+export function ReturnDatePicker({tripType}: TReturnDatePicker) {
   const [open, setOpen] = React.useState(false)
   const [date, setDate] = React.useState<Date | undefined>(undefined)
 
@@ -22,7 +26,8 @@ export function ReturnDatePicker() {
           <Button
             variant="outline"
             id="date"
-            className="w-35 justify-between font-normal text-xs"
+            className="w-35 justify-between font-normal text-xs select-none"
+            disabled={tripType == "oneway"}
           >
             {date ? date.toLocaleDateString() : "Return Date"}
             <ChevronDownIcon />

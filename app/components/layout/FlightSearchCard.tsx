@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import { Card } from "@/components/ui/card";
 import { FromLocationInput } from "../ui/FromLocationInput";
@@ -11,9 +11,11 @@ import { ReturnDatePicker } from "../ui/ReturnDatePicker";
 import { useState } from "react";
 
 export default function FlightSearchCard() {
-  const [tripType, setTripType] = useState<"oneway" | "roundtrip">("oneway")
-  
-  console.log(tripType)
+  const [tripType, setTripType] = useState<"oneway" | "roundtrip">("oneway");
+  const [departureDate, setDepartureDate] = useState<Date | undefined>();
+  const [returnDate, setReturnDate] = useState<Date | undefined>();
+
+  console.log(tripType);
 
   return (
     <Card className="rounded-xl p-6 flex flex-col gap-4">
@@ -24,15 +26,16 @@ export default function FlightSearchCard() {
           <ToLocationInput />
         </div>
         <div className="flex gap-2">
-          <DepartureDatePicker />
-          <ReturnDatePicker />
+          <DepartureDatePicker
+            value={departureDate}
+            onChange={setDepartureDate}
+          />
+
+          <ReturnDatePicker value={returnDate} onChange={setReturnDate} tripType={tripType} />
         </div>
       </div>
       <div className="flex justify-between">
-        <TripTypeSelector
-          value={tripType}
-          onChange={setTripType}
-        />
+        <TripTypeSelector value={tripType} onChange={setTripType} />
         <SearchFlightBtn />
       </div>
     </Card>
