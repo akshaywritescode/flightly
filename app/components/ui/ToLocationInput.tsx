@@ -19,7 +19,7 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 
-import { LocationOption } from "@/app/types/location.types";
+import { AmadeusLocation, LocationOption } from "@/app/types/location.types";
 
 type ToLocationInputProps = {
   value: LocationOption | null;
@@ -48,7 +48,7 @@ export function ToLocationInput({
       const res = await fetch(`/api/locations?q=${query}`);
       const json = await res.json();
 
-      const normalized: LocationOption[] = json.data.map((item: any) => ({
+      const normalized: LocationOption[] = json.data.map((item: AmadeusLocation) => ({
         iataCode: item.iataCode,
         airport: item.subType === "AIRPORT" ? item.name : undefined,
         city: item.address?.cityName,

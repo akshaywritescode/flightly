@@ -4,7 +4,7 @@ import * as React from "react";
 import { Check, PlaneTakeoff } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
-import { LocationOption } from "@/app/types/location.types";
+import { LocationOption, AmadeusLocation } from "@/app/types/location.types";
 import {
   Command,
   CommandEmpty,
@@ -41,7 +41,7 @@ export function FromLocationInput({ value, onChange }: FromLocationInputProps) {
       const res = await fetch(`/api/locations?q=${query}`);
       const json = await res.json();
 
-      const normalized = json.data.map((item: any) => ({
+      const normalized = json.data.map((item: AmadeusLocation) => ({ //type of this item?
         iataCode: item.iataCode,
         airport: item.subType === "AIRPORT" ? item.name : undefined,
         city: item.address?.cityName,
