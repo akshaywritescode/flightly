@@ -9,22 +9,26 @@ import { TripTypeSelector } from "../ui/TripTypeSwitcher";
 import { DepartureDatePicker } from "../ui/DepartureDatePicker";
 import { ReturnDatePicker } from "../ui/ReturnDatePicker";
 import { useState } from "react";
+import { LocationOption } from "@/app/types/location.types";
 
 export default function FlightSearchCard() {
+  
   const [tripType, setTripType] = useState<"oneway" | "roundtrip">("oneway");
   const [departureDate, setDepartureDate] = useState<Date | undefined>();
   const [returnDate, setReturnDate] = useState<Date | undefined>();
+  const [fromLocation, setFromLocation] = useState<LocationOption | null>(null);
+  const [toLocation, setToLocation] = useState<LocationOption | null>(null);
 
-  console.log(tripType, departureDate, returnDate);
+  console.log(tripType, departureDate, returnDate, fromLocation, toLocation);
 
   return (
     <Card className="rounded-xl p-6 flex flex-col gap-4">
       <div className="w-full flex justify-between">
         {/* Location Selection */}
         <div className="flex items-center gap-5">
-          <FromLocationInput />
+          <FromLocationInput value={fromLocation} onChange={setFromLocation} />
           <ArrowLeftRight size={18} className="text-black/70" />
-          <ToLocationInput />
+          <ToLocationInput value={toLocation} onChange={setToLocation} />
         </div>
         {/* Date Sleection */}
         <div className="flex gap-2">
