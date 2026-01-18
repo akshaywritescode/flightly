@@ -23,6 +23,7 @@ export type Segment = {
 export type FlightOffer = {
   id: string;
   itineraries: {
+    duration: string;
     segments: {
       departure: {
         iataCode: string;

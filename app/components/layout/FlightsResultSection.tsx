@@ -1,10 +1,10 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import FlightResultCard from "./FlightResultCard";
 import formatFlightDateTime from "@/lib/formatFlightDateTime";
 import type { FlightOffer, Dictionaries } from "@/app/types/flights.types";
 import { getMealInfo } from "@/lib/hasMeal";
+import { parseISODuration } from "@/lib/parseDuration";
 
 type FlightsResultSectionProps = {
   flights: FlightOffer[];
@@ -38,6 +38,9 @@ export default function FlightsResultSection({
           const carrierName =
             dictionaries?.carriers?.[carrierCode] ?? carrierCode;
           const flightNumber = `${carrierCode}${firstSegment.number}`; // "AI2429"
+          const itineraryDuration = flight.itineraries?.[0]?.duration; // "PT2H15M"
+
+          const { hours, minutes } = parseISODuration(itineraryDuration);
 
           return (
             <FlightResultCard
@@ -51,6 +54,8 @@ export default function FlightsResultSection({
               carrierCode={carrierCode}
               carrierName={carrierName}
               flightNumber={flightNumber}
+              durationH={hours}
+              durationM={minutes}
             />
           );
         })}

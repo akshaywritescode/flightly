@@ -1,8 +1,8 @@
 import {Plane} from "lucide-react"
 
 type FlyIllustrationType = {
-  durationH: string;
-  durationM: string;
+  durationH: number;
+  durationM: number;
 };
 
 export default function FlyIllustration({

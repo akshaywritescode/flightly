@@ -19,6 +19,8 @@ type FlightResultCardProps = {
   carrierCode: string;
   carrierName: string;
   flightNumber: string;
+  durationH: number;
+  durationM: number;
 };
 
 export default function FlightResultCard({
@@ -31,6 +33,8 @@ export default function FlightResultCard({
   carrierCode,
   carrierName,
   flightNumber,
+  durationH,
+  durationM,
 }: FlightResultCardProps) {
   return (
     <Card className="flex justify-between w-[100%]">
@@ -98,7 +102,7 @@ export default function FlightResultCard({
               <span className="text-xs text-black/70">{departureDateTime}</span>
             </div>
 
-            <FlyIllustration durationH={"7"} durationM={"10"} />
+            <FlyIllustration durationH={durationH} durationM={durationM} />
 
             {/* Arrival */}
             <div className="flex flex-col">
