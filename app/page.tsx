@@ -6,10 +6,7 @@ import FlightSearchCard from "./components/layout/FlightSearchCard";
 import FlightsResultSection from "./components/layout/FlightsResultSection";
 
 import type { LocationOption } from "@/app/types/location.types";
-import type {
-  FlightOffer,
-  Dictionaries,
-} from "@/app/types/flights.types";
+import type { FlightOffer, Dictionaries } from "@/app/types/flights.types";
 
 type FlightResponse = {
   data: FlightOffer[];
@@ -21,6 +18,8 @@ export default function Home() {
   const [dictionaries, setDictionaries] = useState<Dictionaries | undefined>();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [fromLocation, setFromLocation] = useState<LocationOption | null>(null);
+  const [toLocation, setToLocation] = useState<LocationOption | null>(null);
 
   async function handleSearch(params: {
     from: LocationOption;
@@ -49,7 +48,7 @@ export default function Home() {
       setFlights(data.data);
       setDictionaries(data.dictionaries);
     } catch (err) {
-      setError("Something went wrong while fetching flights");
+      setError(`Something went wrong while fetching flights ${err}`);
     } finally {
       setLoading(false);
     }
@@ -60,13 +59,21 @@ export default function Home() {
       <Header />
 
       <main className="m-auto min-h-screen max-w-[1200px] bg-[#edebeb] px-10 pt-24">
-        <FlightSearchCard onSearch={handleSearch} />
+        <FlightSearchCard
+          onSearch={handleSearch}
+          fromLocation={fromLocation}
+          toLocation={toLocation}
+          onFromChange={setFromLocation}
+          onToChange={setToLocation}
+        />
 
         <FlightsResultSection
           flights={flights}
           dictionaries={dictionaries}
           loading={loading}
           error={error}
+          fromCity={fromLocation?.city}
+          toCity={toLocation?.city}
         />
       </main>
     </div>
