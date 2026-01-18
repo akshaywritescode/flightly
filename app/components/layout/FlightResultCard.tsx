@@ -9,6 +9,8 @@ import { Backpack, Salad, Luggage } from "lucide-react";
 type FlightResultCardProps = {
   departureIataCode: string;
   arrivalIataCode: string;
+   departureCity: string;
+  arrivalCity: string;
   price: string;
   departureDateTime: string;
   arrivalDateTime: string;
@@ -26,6 +28,8 @@ type FlightResultCardProps = {
 export default function FlightResultCard({
   departureIataCode,
   arrivalIataCode,
+  departureCity,
+  arrivalCity,
   price,
   departureDateTime,
   arrivalDateTime,
@@ -83,8 +87,8 @@ export default function FlightResultCard({
               <Image
                 src={`https://images.ixigo.com/img/common-resources/airline-new/${carrierCode}.png`}
                 alt={`${carrierName} logo`}
-                width={40}
-                height={40}
+                width={50}
+                height={50}
                 quality={100}
                 unoptimized
               />
@@ -97,7 +101,7 @@ export default function FlightResultCard({
           <div className="flex items-center gap-10">
             {/* Departure */}
             <div className="flex flex-col">
-              <span className="text-xs text-black/70">New Delhi</span>
+              <span className="text-xs text-black/70">{departureCity}</span>
               <span className="text-xl font-semibold">{departureIataCode}</span>
               <span className="text-xs text-black/70">{departureDateTime}</span>
             </div>
@@ -106,7 +110,7 @@ export default function FlightResultCard({
 
             {/* Arrival */}
             <div className="flex flex-col">
-              <span className="text-xs text-black/70">Mumbai</span>
+              <span className="text-xs text-black/70">{arrivalCity}</span>
               <span className="text-xl font-semibold">{arrivalIataCode}</span>
               <span className="text-xs text-black/70">{arrivalDateTime}</span>
             </div>

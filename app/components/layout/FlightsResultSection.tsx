@@ -11,6 +11,8 @@ type FlightsResultSectionProps = {
   dictionaries?: Dictionaries;
   loading: boolean;
   error: string | null;
+  fromCity?: string;
+  toCity?: string;
 };
 
 export default function FlightsResultSection({
@@ -18,6 +20,8 @@ export default function FlightsResultSection({
   dictionaries,
   loading,
   error,
+  fromCity,
+  toCity
 }: FlightsResultSectionProps) {
   if (loading) return <p>Loading flights…</p>;
   if (error) return <p className="text-red-500">{error}</p>;
@@ -49,6 +53,8 @@ export default function FlightsResultSection({
               arrivalIataCode={arr.arrival.iataCode}
               departureDateTime={formatFlightDateTime(dep.departure.at)}
               arrivalDateTime={formatFlightDateTime(arr.arrival.at)}
+              departureCity={fromCity ?? dep.departure.iataCode}
+              arrivalCity={toCity ?? arr.arrival.iataCode}
               price={flight.price?.total}
               mealInfo={mealInfo}
               carrierCode={carrierCode}
