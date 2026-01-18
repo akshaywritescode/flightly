@@ -4,7 +4,7 @@ import VeiwDetailBtn from "../ui/ViewDetailBtn";
 import FlyIllustration from "../ui/FlyIllustration";
 import Image from "next/image";
 import { Badge } from "@/components/ui/badge";
-import { Backpack, Salad, Luggage  } from "lucide-react";
+import { Backpack, Salad, Luggage } from "lucide-react";
 
 type FlightResultCardProps = {
   departureIataCode: string;
@@ -12,6 +12,13 @@ type FlightResultCardProps = {
   price: string;
   departureDateTime: string;
   arrivalDateTime: string;
+  mealInfo: {
+    hasMeal: boolean;
+    isFree: boolean;
+  };
+  carrierCode: string;
+  carrierName: string;
+  flightNumber: string;
 };
 
 export default function FlightResultCard({
@@ -20,27 +27,40 @@ export default function FlightResultCard({
   price,
   departureDateTime,
   arrivalDateTime,
+  mealInfo,
+  carrierCode,
+  carrierName,
+  flightNumber,
 }: FlightResultCardProps) {
   return (
     <Card className="flex justify-between w-[100%]">
       {/* Left Caed */}
       <div className="w-[75%] p-3 flex flex-col justify-between">
         <div className="flex gap-2">
-          <Badge
-            variant="outline"
-            className="bg-green-100 border border-green-500"
-          >
-            {" "}
-            <Salad size={13} />{" "}
-            <span className="text-[0.7rem] font-medium ml-1">Free Meal</span>
-          </Badge>
+          {mealInfo.hasMeal && (
+            <Badge
+              variant="outline"
+              className={
+                mealInfo.isFree
+                  ? "bg-green-100 border-green-500"
+                  : "bg-yellow-100 border-yellow-500"
+              }
+            >
+              <Salad size={13} />
+              <span className="text-[0.7rem] font-medium ml-1">
+                {mealInfo.isFree ? "Free Meal" : "Paid Meal"}
+              </span>
+            </Badge>
+          )}
           <Badge
             variant="outline"
             className="bg-blue-100 border border-blue-500"
           >
             {" "}
             <Backpack size={13} />{" "}
-            <span className="text-[0.7rem] font-medium ml-1">Cabin Baggage 7kg / Adult</span>
+            <span className="text-[0.7rem] font-medium ml-1">
+              Cabin Baggage 7kg / Adult
+            </span>
           </Badge>
           <Badge
             variant="outline"
@@ -48,17 +68,17 @@ export default function FlightResultCard({
           >
             {" "}
             <Luggage size={13} />{" "}
-            <span className="text-[0.7rem] font-medium ml-1">Check-in Baggage 15kg / Adult</span>
+            <span className="text-[0.7rem] font-medium ml-1">
+              Check-in Baggage 15kg / Adult
+            </span>
           </Badge>
         </div>
         <div className="flex justify-between">
           <div className="flex gap-2 items-center">
             <div>
               <Image
-                src={
-                  "https://images.ixigo.com/img/common-resources/airline-new/6E.png"
-                }
-                alt="airline-logo"
+                src={`https://images.ixigo.com/img/common-resources/airline-new/${carrierCode}.png`}
+                alt={`${carrierName} logo`}
                 width={40}
                 height={40}
                 quality={100}
@@ -66,8 +86,8 @@ export default function FlightResultCard({
               />
             </div>
             <div>
-              <h3 className="font-medium">IndiGo</h3>
-              <p className="text-sm">6E5322</p>
+              <h3 className="font-medium">{carrierName}</h3>
+              <p className="text-sm">{flightNumber}</p>
             </div>
           </div>
           <div className="flex items-center gap-10">

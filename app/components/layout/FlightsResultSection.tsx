@@ -3,11 +3,8 @@
 import { useEffect, useState } from "react";
 import FlightResultCard from "./FlightResultCard";
 import formatFlightDateTime from "@/lib/formatFlightDateTime";
-import type {
-  FlightOffer,
-  Dictionaries,
-} from "@/app/types/flights.types";
-
+import type { FlightOffer, Dictionaries } from "@/app/types/flights.types";
+import { getMealInfo } from "@/lib/hasMeal";
 
 type FlightsResultSectionProps = {
   flights: FlightOffer[];
@@ -15,7 +12,6 @@ type FlightsResultSectionProps = {
   loading: boolean;
   error: string | null;
 };
-
 
 export default function FlightsResultSection({
   flights,
@@ -36,6 +32,12 @@ export default function FlightsResultSection({
 
           const dep = segments[0];
           const arr = segments[segments.length - 1];
+          const mealInfo = getMealInfo(flight);
+          const firstSegment = segments[0];
+          const carrierCode = firstSegment.carrierCode; // "AI"
+          const carrierName =
+            dictionaries?.carriers?.[carrierCode] ?? carrierCode;
+          const flightNumber = `${carrierCode}${firstSegment.number}`; // "AI2429"
 
           return (
             <FlightResultCard
@@ -45,6 +47,10 @@ export default function FlightsResultSection({
               departureDateTime={formatFlightDateTime(dep.departure.at)}
               arrivalDateTime={formatFlightDateTime(arr.arrival.at)}
               price={flight.price?.total}
+              mealInfo={mealInfo}
+              carrierCode={carrierCode}
+              carrierName={carrierName}
+              flightNumber={flightNumber}
             />
           );
         })}
