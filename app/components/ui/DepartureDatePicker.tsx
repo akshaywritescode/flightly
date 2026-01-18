@@ -11,9 +11,16 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover"
 
-export function DepartureDatePicker() {
+type DepartureDatePickerProps = {
+  value?: Date
+  onChange: (date: Date | undefined) => void
+}
+
+export function DepartureDatePicker({
+  value,
+  onChange,
+}: DepartureDatePickerProps) {
   const [open, setOpen] = React.useState(false)
-  const [date, setDate] = React.useState<Date | undefined>(undefined)
 
   return (
     <div className="flex flex-col gap-3">
@@ -24,19 +31,21 @@ export function DepartureDatePicker() {
             id="date"
             className="w-35 justify-between font-normal text-xs"
           >
-            {date ? date.toLocaleDateString() : "Departure Date"}
+            {value
+            ? value.toLocaleDateString()
+            : "Departure Date"}
             <ChevronDownIcon />
           </Button>
         </PopoverTrigger>
         <PopoverContent className="w-auto overflow-hidden p-0" align="start">
           <Calendar
-            mode="single"
-            selected={date}
-            captionLayout="dropdown"
-            onSelect={(date) => {
-              setDate(date)
-              setOpen(false)
-            }}
+          mode="single"
+          selected={value}
+          captionLayout="dropdown"
+          onSelect={(date) => {
+            onChange(date)
+            setOpen(false)
+          }}
           />
         </PopoverContent>
       </Popover>

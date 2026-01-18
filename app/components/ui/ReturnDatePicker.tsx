@@ -11,40 +11,47 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover"
 
-type TReturnDatePicker = {
+type ReturnDatePickerProps = {
+  value?: Date
+  onChange: (date: Date | undefined) => void
   tripType: "oneway" | "roundtrip"
 }
 
-export function ReturnDatePicker({tripType}: TReturnDatePicker) {
+export function ReturnDatePicker({
+  value,
+  onChange,
+  tripType,
+}: ReturnDatePickerProps) {
   const [open, setOpen] = React.useState(false)
-  const [date, setDate] = React.useState<Date | undefined>(undefined)
+
+  const disabled = tripType === "oneway"
 
   return (
-    <div className="flex flex-col gap-3">
-      <Popover open={open} onOpenChange={setOpen}>
-        <PopoverTrigger asChild>
-          <Button
-            variant="outline"
-            id="date"
-            className="w-35 justify-between font-normal text-xs select-none"
-            disabled={tripType == "oneway"}
-          >
-            {date ? date.toLocaleDateString() : "Return Date"}
-            <ChevronDownIcon />
-          </Button>
-        </PopoverTrigger>
+    <Popover open={open} onOpenChange={setOpen}>
+      <PopoverTrigger asChild>
+        <Button
+          variant="outline"
+          className="w-35 justify-between font-normal text-xs select-none"
+          disabled={disabled}
+        >
+          {value ? value.toLocaleDateString() : "Return Date"}
+          <ChevronDownIcon />
+        </Button>
+      </PopoverTrigger>
+
+      {!disabled && (
         <PopoverContent className="w-auto overflow-hidden p-0" align="start">
           <Calendar
             mode="single"
-            selected={date}
+            selected={value}
             captionLayout="dropdown"
             onSelect={(date) => {
-              setDate(date)
+              onChange(date)
               setOpen(false)
             }}
           />
         </PopoverContent>
-      </Popover>
-    </div>
+      )}
+    </Popover>
   )
 }
