@@ -3,8 +3,10 @@
 import { useEffect, useState } from "react";
 import FlightResultCard from "./FlightResultCard";
 import formatFlightDateTime from "@/lib/formatFlightDateTime";
-import type { FlightOffer, Dictionaries } from "@/app/types/flight-search.types";
-
+import type {
+  FlightOffer,
+  Dictionaries,
+} from "@/app/types/flight-search.types";
 
 export type FlightResponse = {
   data: FlightOffer[];
@@ -13,7 +15,6 @@ export type FlightResponse = {
     count: number;
   };
 };
-
 
 export default function FlightsResultSection() {
   const [flights, setFlights] = useState<FlightOffer[]>([]);
@@ -37,7 +38,7 @@ export default function FlightsResultSection() {
         const data: FlightResponse = await res.json();
         setFlights(data.data || []);
       } catch (err) {
-        setError(`Something went wrong while fetching flights ${err}`,);
+        setError(`Something went wrong while fetching flights ${err}`);
       } finally {
         setLoading(false);
       }
@@ -47,7 +48,11 @@ export default function FlightsResultSection() {
   }, []);
 
   return (
-    <section className="mt-6">
+    <section className="mt-20">
+      <div className="ml-2 mb-4">
+        <h1 className="font-semibold">All available Flights</h1>
+        <p className="text-xs font-medium text-black/60">102 flights</p>
+      </div>
       {loading && <p>Loading flights…</p>}
       {error && <p className="text-red-500">{error}</p>}
 
