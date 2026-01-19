@@ -1,0 +1,1 @@
+export type StopsFilterType = "all" | "nonstop" | "1stop" | "2plus";

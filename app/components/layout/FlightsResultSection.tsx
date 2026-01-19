@@ -10,6 +10,7 @@ import WelcomeState from "../ui/WelcomeIllustration";
 import FlightLoading from "../ui/FlightLoading";
 import FilterCard from "./FilterCard";
 import { PaginationComponent } from "../ui/FlightsResultSection/Pagination";
+import { StopsFilterType } from "@/app/types/filters.types";
 
 type FlightsResultSectionProps = {
   flights: FlightOffer[];
@@ -22,6 +23,8 @@ type FlightsResultSectionProps = {
   totalFlights: number | null;
   page: number;
   onPageChange: (page: number) => void;
+  stops: StopsFilterType;
+  onStopsChange: (value: StopsFilterType) => void;
 };
 
 export default function FlightsResultSection({
@@ -35,8 +38,9 @@ export default function FlightsResultSection({
   totalFlights,
   page,
   onPageChange,
+  stops,
+  onStopsChange,
 }: FlightsResultSectionProps) {
-
   if (loading) return <FlightLoading />;
   if (error) return <p className="text-red-500">{error}</p>;
   //if no flights found
@@ -132,7 +136,12 @@ export default function FlightsResultSection({
             </div>
           </div>
         </div>
-        <FilterCard />
+        <FilterCard
+          fromCity={fromCity}
+          toCity={toCity}
+          stops={stops}
+          onStopsChange={onStopsChange}
+        />
       </div>
     </section>
   );
