@@ -6,3 +6,11 @@ export type DepartureTimeFilter =
   | "6to12"
   | "12to6"
   | "after6pm";
+
+export type ArrivalTimeFilter =
+  | "all"
+  | "before6am"
+  | "6to12"
+  | "12to6"
+  | "after6pm";
+  
