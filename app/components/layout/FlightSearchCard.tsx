@@ -1,13 +1,13 @@
 "use client";
 
 import { Card } from "@/components/ui/card";
-import { FromLocationInput } from "../ui/FromLocationInput";
-import { ToLocationInput } from "../ui/ToLocationInput";
+import { FromLocationInput } from "../ui/FlightSearchCard/FromLocationInput";
+import { ToLocationInput } from "../ui/FlightSearchCard/ToLocationInput";
 import { ArrowLeftRight } from "lucide-react";
-import SearchFlightBtn from "../ui/SearchFlightBtn";
-import { TripTypeSelector } from "../ui/TripTypeSwitcher";
-import { DepartureDatePicker } from "../ui/DepartureDatePicker";
-import { ReturnDatePicker } from "../ui/ReturnDatePicker";
+import SearchFlightBtn from "../ui/Header/SearchFlightBtn";
+import { TripTypeSelector } from "../ui/FlightSearchCard/TripTypeSwitcher";
+import { DepartureDatePicker } from "../ui/FlightSearchCard/DepartureDatePicker";
+import { ReturnDatePicker } from "../ui/FlightSearchCard/ReturnDatePicker";
 import { useState } from "react";
 import { LocationOption } from "@/app/types/location.types";
 

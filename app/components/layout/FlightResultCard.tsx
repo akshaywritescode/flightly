@@ -1,7 +1,7 @@
 import { Card } from "@/components/ui/card";
-import BookNowBtn from "../ui/BookNowBtn";
-import VeiwDetailBtn from "../ui/ViewDetailBtn";
-import FlyIllustration from "../ui/FlyIllustration";
+import BookNowBtn from "../ui/FlightResultCard/BookNowBtn";
+import VeiwDetailBtn from "../ui/FlightResultCard/ViewDetailBtn";
+import FlyIllustration from "../ui/FlightResultCard/FlyIllustration";
 import Image from "next/image";
 import { Badge } from "@/components/ui/badge";
 import { Backpack, Salad, Luggage } from "lucide-react";

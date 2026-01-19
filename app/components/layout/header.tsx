@@ -1,5 +1,5 @@
 import { Card } from "@/components/ui/card";
-import Logo from "../ui/Logo";
+import Logo from "../ui/Header/Logo";
 import Image from "next/image";
 import Avatar from "@/app/assets/avatar.jpg";
 import {
