@@ -9,8 +9,7 @@ import NothingHere from "../ui/NothingHere";
 import WelcomeState from "../ui/WelcomeIllustration";
 import FlightLoading from "../ui/FlightLoading";
 import FilterCard from "./FilterCard";
-import { PaginationComponent } from "../ui/Pagination";
-import { useEffect } from "react";
+import { PaginationComponent } from "../ui/FlightsResultSection/Pagination";
 
 type FlightsResultSectionProps = {
   flights: FlightOffer[];
