@@ -7,7 +7,11 @@ import FlightsResultSection from "./components/layout/FlightsResultSection";
 
 import type { LocationOption } from "@/app/types/location.types";
 import type { FlightOffer, Dictionaries } from "@/app/types/flights.types";
-import type { StopsFilterType } from "@/app/types/filters.types";
+import type {
+  DepartureTimeFilter,
+  StopsFilterType,
+} from "@/app/types/filters.types";
+import { getDepartureHour } from "@/lib/getDepartureHour";
 
 type FlightResponse = {
   data: FlightOffer[];
@@ -34,6 +38,9 @@ export default function Home() {
 
   const [totalFlights, setTotalFlights] = useState<number | null>(null);
 
+  const [departureTime, setDepartureTime] =
+    useState<DepartureTimeFilter>("all");
+
   function applyStopsFilter(flights: FlightOffer[], filter: StopsFilterType) {
     if (!filter || filter === "all") return flights;
 
@@ -54,13 +61,42 @@ export default function Home() {
     });
   }
 
+  function applyDepartureTimeFilter(
+    flights: FlightOffer[],
+    filter: DepartureTimeFilter
+  ) {
+    if (filter === "all") return flights;
+
+    return flights.filter((flight) => {
+      const hour = getDepartureHour(flight);
+      if (hour === null) return false;
+
+      switch (filter) {
+        case "before6am":
+          return hour < 6;
+        case "6to12":
+          return hour >= 6 && hour < 12;
+        case "12to6":
+          return hour >= 12 && hour < 18;
+        case "after6pm":
+          return hour >= 18;
+        default:
+          return true;
+      }
+    });
+  }
+
   useEffect(() => {
     if (!hasSearched) return;
 
-    const filtered = applyStopsFilter(allFlights, stopsFilter);
+    let filtered = allFlights;
+
+    filtered = applyStopsFilter(allFlights, stopsFilter);
+    filtered = applyDepartureTimeFilter(filtered, departureTime);
+
     setFlights(filtered);
     setPage(1);
-  }, [stopsFilter, allFlights, hasSearched]);
+  }, [stopsFilter, allFlights, hasSearched, departureTime]);
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: "smooth" });
@@ -131,6 +167,8 @@ export default function Home() {
           onPageChange={setPage}
           stops={stopsFilter}
           onStopsChange={setStopsFilter}
+          departureTime={departureTime}
+          onDepartureTimeChange={setDepartureTime}
         />
       </main>
     </div>

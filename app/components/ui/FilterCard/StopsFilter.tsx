@@ -14,7 +14,7 @@ export default function StopsFilter({ value, onChange }: StopsFilterProps) {
 
   return (
     <div className="mt-5">
-      <h2 className="text-[0.9rem] mb-2 font-medium -ml-2">Stops</h2>
+      <h2 className="text-[0.8rem] mb-2 font-medium -ml-2">Stops</h2>
 
       <div className="grid grid-cols-2 grid-rows-2 gap-3">
         {/* ALL */}
