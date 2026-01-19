@@ -7,6 +7,7 @@ import { getMealInfo } from "@/lib/hasMeal";
 import { parseISODuration } from "@/lib/parseDuration";
 import NothingHere from "../ui/NothingHere";
 import WelcomeState from "../ui/WelcomeIllustration";
+import FlightLoading from "../ui/FlightLoading";
 
 type FlightsResultSectionProps = {
   flights: FlightOffer[];
@@ -27,7 +28,7 @@ export default function FlightsResultSection({
   toCity,
   hasSearched,
 }: FlightsResultSectionProps) {
-  if (loading) return <p>Loading flights…</p>;
+  if (loading) return <FlightLoading />;
   if (error) return <p className="text-red-500">{error}</p>;
   //if no flights found
   if (hasSearched && !flights.length) {
