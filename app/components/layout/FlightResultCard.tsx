@@ -9,7 +9,7 @@ import { Backpack, Salad, Luggage } from "lucide-react";
 type FlightResultCardProps = {
   departureIataCode: string;
   arrivalIataCode: string;
-   departureCity: string;
+  departureCity: string;
   arrivalCity: string;
   price: string;
   departureDateTime: string;
@@ -23,6 +23,10 @@ type FlightResultCardProps = {
   flightNumber: string;
   durationH: number;
   durationM: number;
+  stops: {
+    count: number;
+    via: string[];
+  };
 };
 
 export default function FlightResultCard({
@@ -39,11 +43,12 @@ export default function FlightResultCard({
   flightNumber,
   durationH,
   durationM,
+  stops,
 }: FlightResultCardProps) {
   return (
     <Card className="flex justify-between w-[100%]">
       {/* Left Caed */}
-      <div className="w-[75%] p-3 flex flex-col justify-between">
+      <div className="w-[75%] p-6 flex flex-col justify-between">
         <div className="flex gap-2">
           {mealInfo.hasMeal && (
             <Badge
@@ -98,7 +103,7 @@ export default function FlightResultCard({
               <p className="text-sm">{flightNumber}</p>
             </div>
           </div>
-          <div className="flex items-center gap-10">
+          <div className="flex items-center gap-14">
             {/* Departure */}
             <div className="flex flex-col">
               <span className="text-xs text-black/70">{departureCity}</span>
@@ -106,7 +111,11 @@ export default function FlightResultCard({
               <span className="text-xs text-black/70">{departureDateTime}</span>
             </div>
 
-            <FlyIllustration durationH={durationH} durationM={durationM} />
+            <FlyIllustration
+              durationH={durationH}
+              durationM={durationM}
+              stops={stops}
+            />
 
             {/* Arrival */}
             <div className="flex flex-col">
@@ -118,7 +127,7 @@ export default function FlightResultCard({
         </div>
       </div>
       {/* Right card */}
-      <div className="border-l w-[25%] flex flex-col text-right gap-10 p-3">
+      <div className="border-l w-[25%] flex flex-col text-right gap-10 p-6">
         <span className="text-2xl font-medium">₹{price}</span>
         <div className="flex flex-col gap-2 ">
           <VeiwDetailBtn />
