@@ -29,7 +29,7 @@ export function DepartureDatePicker({
           <Button
             variant="outline"
             id="date"
-            className="w-35 justify-between font-normal text-xs"
+            className="w-[1/2] justify-between font-normal text-xs sm:w-36"
           >
             {value
             ? value.toLocaleDateString()
