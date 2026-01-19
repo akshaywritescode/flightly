@@ -3,7 +3,7 @@ import StopsFilter from "../ui/FilterCard/StopsFilter";
 import DepartureTimingFilter from "../ui/FilterCard/DepartureTimingFilter";
 import ArrivalTimingFilter from "../ui/FilterCard/ArrivalTimingFilter";
 import {
-    ArrivalTimeFilter,
+  ArrivalTimeFilter,
   DepartureTimeFilter,
   StopsFilterType,
 } from "@/app/types/filters.types";
@@ -17,6 +17,7 @@ type FilterCardsProps = {
   onDepartureTimeChange: (value: DepartureTimeFilter) => void;
   arrivalTime: ArrivalTimeFilter;
   onArrivalTimeChange: (value: ArrivalTimeFilter) => void;
+  variant?: "sidebar" | "sheet";
 };
 
 export default function FilterCard({
@@ -27,10 +28,18 @@ export default function FilterCard({
   departureTime,
   onDepartureTimeChange,
   arrivalTime,
-  onArrivalTimeChange
+  onArrivalTimeChange,
+  variant,
 }: FilterCardsProps) {
   return (
-    <Card className="w-[25%] p-4 flex flex-col items-center">
+    <Card
+  className={`
+    flex flex-col
+    ${variant === "sidebar"
+      ? "hidden lg:flex w-[25%] p-4 items-center"
+      : "w-full p-3 items-stretch rounded-none shadow-none"}
+  `}
+>
       {/* Header */}
       <div className="flex justify-between items-center w-full">
         <h1 className="font-semibold text-lg">Filters</h1>
@@ -38,7 +47,7 @@ export default function FilterCard({
       </div>
 
       {/* Content */}
-      <CardContent className="p-0 flex flex-col">
+      <CardContent className="p-0 flex flex-col gap-4">
         {/* Stops Filter */}
         <StopsFilter value={stops} onChange={onStopsChange} />
 
@@ -50,7 +59,11 @@ export default function FilterCard({
         />
 
         {/* Arrival Filter */}
-        <ArrivalTimingFilter toCity={toCity} value={arrivalTime} onChange={onArrivalTimeChange} />
+        <ArrivalTimingFilter
+          toCity={toCity}
+          value={arrivalTime}
+          onChange={onArrivalTimeChange}
+        />
       </CardContent>
     </Card>
   );
