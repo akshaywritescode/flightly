@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import Header from "./components/layout/header";
 import FlightSearchCard from "./components/layout/FlightSearchCard";
 import FlightsResultSection from "./components/layout/FlightsResultSection";
@@ -31,7 +31,6 @@ export default function Home() {
 
   const [stopsFilter, setStopsFilter] = useState<StopsFilterType>("all");
   const [page, setPage] = useState(1);
-  const PAGE_SIZE = 20;
 
   const [totalFlights, setTotalFlights] = useState<number | null>(null);
 
@@ -101,7 +100,7 @@ export default function Home() {
       setDictionaries(data.dictionaries);
       setTotalFlights(data.meta?.count ?? data.data.length);
     } catch (err) {
-      setError("Something went wrong while fetching flights");
+      setError(`Something went wrong while fetching flights ${err}`);
     } finally {
       setLoading(false);
     }

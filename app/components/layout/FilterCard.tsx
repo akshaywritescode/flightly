@@ -1,6 +1,4 @@
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader } from "@/components/ui/card";
-import { Sun, SunDim, SunMoon, Sunrise } from "lucide-react";
+import { Card, CardContent} from "@/components/ui/card";
 import StopsFilter from "../ui/FilterCard/StopsFilter";
 import DepartureTimingFilter from "../ui/FilterCard/DepartureTimingFilter";
 import ArrivalTimingFilter from "../ui/FilterCard/ArrivalTimingFilter";
