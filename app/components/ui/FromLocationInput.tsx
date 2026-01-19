@@ -18,6 +18,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
+import { Span } from "next/dist/trace";
 
 type FromLocationInputProps = {
   value: LocationOption | null;
@@ -66,7 +67,7 @@ export function FromLocationInput({ value, onChange }: FromLocationInputProps) {
               {value.iataCode} – {value.city}, {value.country}
             </div>
           ) : (
-            "From"
+             <span className="flex gap-3 text-xs">Departure Location</span> 
           )}
         </Button>
       </PopoverTrigger>

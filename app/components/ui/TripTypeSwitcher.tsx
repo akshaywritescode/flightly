@@ -20,12 +20,12 @@ export function TripTypeSelector({
     >
       <div className="flex items-center gap-2">
         <RadioGroupItem value="oneway" id="oneway" />
-        <Label htmlFor="oneway">One way</Label>
+        <Label htmlFor="oneway" className="text-xs">One way</Label>
       </div>
 
       <div className="flex items-center gap-2">
         <RadioGroupItem value="roundtrip" id="roundtrip" />
-        <Label htmlFor="roundtrip">Round Trip</Label>
+        <Label htmlFor="roundtrip" className="text-xs">Round Trip</Label>
       </div>
     </RadioGroup>
   )
