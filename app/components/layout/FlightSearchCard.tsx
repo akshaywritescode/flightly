@@ -45,7 +45,7 @@ export default function FlightSearchCard({
     (tripType === "oneway" || returnDate);
 
   return (
-    <Card className="rounded-xl p-6 flex flex-col gap-4">
+    <Card className="rounded-xl p-6 flex flex-col gap-4 mt-6">
       <div className="w-full flex justify-between">
         <div className="flex items-center gap-5">
           <FromLocationInput value={fromLocation} onChange={onFromChange} />

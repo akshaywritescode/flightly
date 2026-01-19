@@ -52,9 +52,9 @@ export default function Header() {
       <Card className="rounded-none w-full h-full flex items-center justify-between px-4">
         <Logo />
         <div>
-          <ul className="flex gap-8 bg-black/10 justify-evenly py-[0.6rem] px-4 rounded-lg">
+          <ul className="flex gap-8 bg-black/5 justify-evenly py-[0.6rem] px-4 rounded-lg">
             {servicesData.map((service) => (
-              <li>
+              <li key={service.serviceName}>
                 <div className="flex flex-col items-center gap-2 w-10 cursor-pointer">
                   <service.icon className={`w-4 h-4 ${service.isSelected ? "text-blue-700" : "text-black"}`} strokeWidth={2} />
                   <span
