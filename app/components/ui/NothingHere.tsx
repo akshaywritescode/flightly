@@ -3,7 +3,7 @@ import Image from "next/image";
 
 export default function NothingHere() {
   return (
-    <div className="flex flex-col items-center gap-4 text-center py-16">
+    <div className="flex flex-col items-center gap-4 text-center mt-28">
       <Image
         src={NothingHereIllustration}
         width={300}
