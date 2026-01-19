@@ -1,12 +1,12 @@
-import { PlaneTakeoff } from "lucide-react"
+import { Plane } from "lucide-react"
 
 export default function Logo(){
     return <div className="flex gap-1">
-        <PlaneTakeoff
+        <Plane
         fill="currentColor"
-        size={30}
+        size={28}
         strokeWidth={0}
       />
-        <span className="text-foreground font-medium text-lg hidden [@media(min-width:480px)]:flex">Flightly</span>
+        <span className="text-foreground font-black text-xl">Flightly</span>
     </div>
 }
