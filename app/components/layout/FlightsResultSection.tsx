@@ -68,6 +68,18 @@ export default function FlightsResultSection({
 
           const { hours, minutes } = parseISODuration(itineraryDuration);
 
+          const stopsCount = segments.length - 1;
+          const viaCities =
+            stopsCount > 0
+              ? segments
+                  .slice(0, -1)
+                  .map(
+                    (seg) =>
+                      dictionaries?.locations?.[seg.arrival.iataCode]
+                        ?.cityCode ?? seg.arrival.iataCode
+                  )
+              : [];
+
           return (
             <FlightResultCard
               key={index}
@@ -84,6 +96,10 @@ export default function FlightsResultSection({
               flightNumber={flightNumber}
               durationH={hours}
               durationM={minutes}
+              stops={{
+                count: stopsCount,
+                via: viaCities,
+              }}
             />
           );
         })}
