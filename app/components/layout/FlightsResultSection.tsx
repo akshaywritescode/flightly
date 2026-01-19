@@ -10,7 +10,6 @@ import WelcomeState from "../ui/WelcomeIllustration";
 import FlightLoading from "../ui/FlightLoading";
 import FilterCard from "./FilterCard";
 import { PaginationComponent } from "../ui/FlightsResultSection/Pagination";
-import { useEffect } from "react";
 
 type FlightsResultSectionProps = {
   flights: FlightOffer[];
