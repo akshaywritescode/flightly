@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Header from "./components/layout/header";
 import FlightSearchCard from "./components/layout/FlightSearchCard";
 import FlightsResultSection from "./components/layout/FlightsResultSection";
@@ -25,6 +25,17 @@ export default function Home() {
   const [toLocation, setToLocation] = useState<LocationOption | null>(null);
   const [hasSearched, setHasSearched] = useState(false);
   const [totalFlights, setTotalFlights] = useState<number | null>(null);
+  const [page, setPage] = useState(1);
+
+  useEffect(() => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+
+    const list = document.querySelector(".thin-scrollbar");
+    list?.scrollTo({ top: 0, behavior: "smooth" });
+  }, [page]);
 
   async function handleSearch(params: {
     from: LocationOption;
@@ -37,12 +48,13 @@ export default function Home() {
       setHasSearched(true);
       setLoading(true);
       setError(null);
+      setPage(1);
 
       const query = new URLSearchParams({
         origin: params.from.iataCode,
         destination: params.to.iataCode,
         date: params.departureDate.toISOString().split("T")[0],
-        currencyCode: "INR",
+        currencyCode: "USD",
         max: "20",
       });
 
@@ -83,6 +95,8 @@ export default function Home() {
           toCity={toLocation?.city}
           hasSearched={hasSearched}
           totalFlights={totalFlights}
+          page={page}
+          onPageChange={setPage}
         />
       </main>
     </div>

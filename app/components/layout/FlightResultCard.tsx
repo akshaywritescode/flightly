@@ -128,7 +128,7 @@ export default function FlightResultCard({
       </div>
       {/* Right card */}
       <div className="border-l w-[25%] flex flex-col text-right gap-10 p-6">
-        <span className="text-2xl font-medium">₹{price}</span>
+        <span className="text-2xl font-medium">${price}</span>
         <div className="flex flex-col gap-2 ">
           <VeiwDetailBtn />
           <BookNowBtn />
