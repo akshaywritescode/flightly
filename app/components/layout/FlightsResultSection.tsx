@@ -17,7 +17,7 @@ type FlightsResultSectionProps = {
   fromCity?: string;
   toCity?: string;
   hasSearched: boolean;
-  totalFlights: number;
+  totalFlights: number | null;
 };
 
 export default function FlightsResultSection({
