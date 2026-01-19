@@ -11,6 +11,9 @@ import type { FlightOffer, Dictionaries } from "@/app/types/flights.types";
 type FlightResponse = {
   data: FlightOffer[];
   dictionaries?: Dictionaries;
+  meta?: {
+    count: number;
+  };
 };
 
 export default function Home() {
@@ -21,6 +24,7 @@ export default function Home() {
   const [fromLocation, setFromLocation] = useState<LocationOption | null>(null);
   const [toLocation, setToLocation] = useState<LocationOption | null>(null);
   const [hasSearched, setHasSearched] = useState(false);
+  const [totalFlights, setTotalFlights] = useState<number | null>(null);
 
   async function handleSearch(params: {
     from: LocationOption;
@@ -49,6 +53,7 @@ export default function Home() {
 
       setFlights(data.data);
       setDictionaries(data.dictionaries);
+      setTotalFlights(data.meta?.count ?? data.data.length);
     } catch (err) {
       setError(`Something went wrong while fetching flights ${err}`);
     } finally {
@@ -77,6 +82,7 @@ export default function Home() {
           fromCity={fromLocation?.city}
           toCity={toLocation?.city}
           hasSearched={hasSearched}
+          totalFlights={totalFlights}
         />
       </main>
     </div>
