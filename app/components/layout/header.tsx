@@ -1,6 +1,5 @@
 import { Card } from "@/components/ui/card";
 import Logo from "../ui/Logo";
-import ThemeSwitcher from "../ui/ThemeSwitcher";
 
 export default function Header() {
   return (
@@ -8,7 +7,7 @@ export default function Header() {
       <Card className="rounded-none w-full h-full flex items-center justify-between px-4">
         <Logo />
         <div className="flex gap-3 sm:gap-6">
-          <ThemeSwitcher defaultValue="light" />
+          
         </div>
       </Card>
     </header>

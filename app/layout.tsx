@@ -1,8 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { poppins } from "./fonts";
-import { ThemeProvider } from "./providers/themeProviders";
-
 
 export const metadata: Metadata = {
   title: "Flightly | Real-Time Flight Search & Price Comparison",
@@ -21,14 +19,7 @@ export default function RootLayout({
         className={`${poppins.className} w-auto bg-[#edebeb] antialiased`}
         suppressHydrationWarning
       >
-        <ThemeProvider
-            attribute="class"
-            defaultTheme="light"
-            enableSystem
-            disableTransitionOnChange
-          >
-            {children}
-          </ThemeProvider>
+        {children}
       </body>
     </html>
   );
