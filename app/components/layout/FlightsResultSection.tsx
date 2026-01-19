@@ -5,6 +5,7 @@ import formatFlightDateTime from "@/lib/formatFlightDateTime";
 import type { FlightOffer, Dictionaries } from "@/app/types/flights.types";
 import { getMealInfo } from "@/lib/hasMeal";
 import { parseISODuration } from "@/lib/parseDuration";
+import NothingHere from "../ui/NothingHere";
 
 type FlightsResultSectionProps = {
   flights: FlightOffer[];
@@ -13,6 +14,7 @@ type FlightsResultSectionProps = {
   error: string | null;
   fromCity?: string;
   toCity?: string;
+  hasSearched: boolean;
 };
 
 export default function FlightsResultSection({
@@ -21,11 +23,15 @@ export default function FlightsResultSection({
   loading,
   error,
   fromCity,
-  toCity
+  toCity,
+  hasSearched,
 }: FlightsResultSectionProps) {
   if (loading) return <p>Loading flights…</p>;
   if (error) return <p className="text-red-500">{error}</p>;
-  if (!flights.length) return null;
+  //if no flights found
+  if (hasSearched && !flights.length) {
+    return <NothingHere />;
+  }
 
   return (
     <section className="mt-20">

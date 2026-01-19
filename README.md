@@ -1,6 +1,6 @@
 # ✈️ Flightly — Modern Flight Search Engine
 
-![Background Image](https://github.com/akshaywritescode/flightly/blob/main/app/assets/background.png?raw=true)
+![background image](https://raw.githubusercontent.com/akshaywritescode/flightly/refs/heads/main/app/assets/background.png)
 
 Flightly is a modern, responsive flight search engine built as part of a frontend engineering assignment.  
 It focuses on clean architecture, real-time data handling, and a polished user experience inspired by real-world products like Google Flights.
