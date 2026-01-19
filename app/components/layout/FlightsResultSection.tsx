@@ -53,7 +53,7 @@ export default function FlightsResultSection({
         </p>
       </div>
       <div className="flex gap-3 w-full">
-        <ul className="space-y-4 w-[75%]">
+        <ul className="space-y-4 w-[75%] h-screen overflow-y-scroll thin-scrollbar">
           {flights.map((flight, index) => {
             const segments = flight.itineraries?.[0]?.segments ?? [];
             if (!segments.length) return null;
