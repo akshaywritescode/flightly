@@ -48,7 +48,7 @@ const servicesData = [
 
 export default function Header() {
   return (
-    <header className="w-full h-[5rem] fixed">
+    <header className="w-full h-[5rem] fixed left-0 z-10 shadow-sm">
       <Card className="rounded-none w-full h-full flex items-center justify-between px-4">
         <Logo />
         <div>

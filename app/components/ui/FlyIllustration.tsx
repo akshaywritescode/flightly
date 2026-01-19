@@ -16,7 +16,7 @@ export default function FlyIllustration({
 }: FlyIllustrationType) {
   return (
     <div className="flex flex-col items-center gap-2 w-[7.5rem]">
-      <div className="flex items-center relative">
+      <div className="flex items-center relative z-3">
         <div className="w-[0.30rem] h-[0.30rem] bg-black rounded-full"></div>
 
         <div className="flex gap-1">
