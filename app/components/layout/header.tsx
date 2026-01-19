@@ -52,7 +52,7 @@ export default function Header() {
       <Card className="rounded-none w-full h-full flex items-center justify-between px-4">
         <Logo />
         <div>
-          <ul className="flex gap-8 bg-black/5 justify-evenly py-[0.6rem] px-4 rounded-lg">
+          <ul className="flex gap-6 bg-black/5 justify-evenly py-[0.6rem] px-4 rounded-lg">
             {servicesData.map((service) => (
               <li key={service.serviceName}>
                 <div className="flex flex-col items-center gap-2 w-10 cursor-pointer">

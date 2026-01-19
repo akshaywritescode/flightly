@@ -17,6 +17,7 @@ type FlightsResultSectionProps = {
   fromCity?: string;
   toCity?: string;
   hasSearched: boolean;
+  totalFlights: number;
 };
 
 export default function FlightsResultSection({
@@ -27,6 +28,7 @@ export default function FlightsResultSection({
   fromCity,
   toCity,
   hasSearched,
+  totalFlights,
 }: FlightsResultSectionProps) {
   if (loading) return <FlightLoading />;
   if (error) return <p className="text-red-500">{error}</p>;
@@ -35,12 +37,20 @@ export default function FlightsResultSection({
     return <NothingHere />;
   }
 
-  if(!hasSearched){
-    return <WelcomeState />
+  if (!hasSearched) {
+    return <WelcomeState />;
   }
 
   return (
     <section className="mt-20">
+      <div className="ml-1 mb-3">
+        <h1 className="font-semibold">All Available Flights</h1>
+        <p className="text-xs text-black/60">
+          {totalFlights
+            ? `${totalFlights} flights found`
+            : `${flights.length} flights`}
+        </p>
+      </div>
       <ul className="space-y-4">
         {flights.map((flight, index) => {
           const segments = flight.itineraries?.[0]?.segments ?? [];
