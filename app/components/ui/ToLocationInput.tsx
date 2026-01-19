@@ -77,7 +77,7 @@ export function ToLocationInput({
               {value.iataCode} – {value.city}, {value.country}
             </div>
           ) : (
-            "To"
+            <span className="flex gap-3 text-xs">Arrival Location</span> 
           )}
         </Button>
       </PopoverTrigger>

@@ -6,6 +6,7 @@ import type { FlightOffer, Dictionaries } from "@/app/types/flights.types";
 import { getMealInfo } from "@/lib/hasMeal";
 import { parseISODuration } from "@/lib/parseDuration";
 import NothingHere from "../ui/NothingHere";
+import WelcomeState from "../ui/WelcomeIllustration";
 
 type FlightsResultSectionProps = {
   flights: FlightOffer[];
@@ -31,6 +32,10 @@ export default function FlightsResultSection({
   //if no flights found
   if (hasSearched && !flights.length) {
     return <NothingHere />;
+  }
+
+  if(!hasSearched){
+    return <WelcomeState />
   }
 
   return (
