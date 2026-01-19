@@ -31,7 +31,7 @@ export function ReturnDatePicker({
       <PopoverTrigger asChild>
         <Button
           variant="outline"
-          className="w-35 justify-between font-normal text-xs select-none"
+          className="w-[50%] justify-between font-normal text-xs sm:w-36"
           disabled={disabled}
         >
           {value ? value.toLocaleDateString() : "Return Date"}

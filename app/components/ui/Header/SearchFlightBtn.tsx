@@ -8,9 +8,14 @@ type SearchFlightBtnProps = {
 export default function SearchFlightBtn({
   onClick,
   disabled,
-}: SearchFlightBtnProps){
-    return <Button onClick={onClick}
-      disabled={disabled} className="text-xs bg-blue-600 cursor-pointer hover:bg-blue-700">
-        Search Flights
+}: SearchFlightBtnProps) {
+  return (
+    <Button
+      onClick={onClick}
+      disabled={disabled}
+      className="w-full sm:w-auto text-xs bg-blue-600 hover:bg-blue-700"
+    >
+      Search Flights
     </Button>
+  );
 }

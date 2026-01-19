@@ -20,12 +20,11 @@ type FlightSearchCardProps = {
     tripType: "oneway" | "roundtrip";
   }) => void;
 
-   fromLocation: LocationOption | null;
+  fromLocation: LocationOption | null;
   toLocation: LocationOption | null;
   onFromChange: (loc: LocationOption | null) => void;
   onToChange: (loc: LocationOption | null) => void;
 };
-
 
 export default function FlightSearchCard({
   onSearch,
@@ -46,14 +45,18 @@ export default function FlightSearchCard({
 
   return (
     <Card className="rounded-xl p-6 flex flex-col gap-4 mt-6">
-      <div className="w-full flex justify-between">
-        <div className="flex items-center gap-5">
+      <div className="block sm:hidden">
+        <TripTypeSelector value={tripType} onChange={setTripType} />
+      </div>
+
+      <div className="w-full flex flex-col gap-4 lg:flex-row lg:justify-between">
+        <div className="flex items-center gap-3 sm:gap-5">
           <FromLocationInput value={fromLocation} onChange={onFromChange} />
-          <ArrowLeftRight size={18} className="text-black/70" />
+          <ArrowLeftRight  className="text-black/70 w-6 h-6 sm:w-5 sm:h-6" />
           <ToLocationInput value={toLocation} onChange={onToChange} />
         </div>
 
-        <div className="flex gap-2">
+        <div className="flex gap-2 justify-between sm:justify-start">
           <DepartureDatePicker
             value={departureDate}
             onChange={(date) => {
@@ -73,7 +76,9 @@ export default function FlightSearchCard({
       </div>
 
       <div className="flex justify-between">
-        <TripTypeSelector value={tripType} onChange={setTripType} />
+        <div className="hidden sm:flex">
+          <TripTypeSelector value={tripType} onChange={setTripType} />
+        </div>
 
         <SearchFlightBtn
           disabled={!canSearch}
