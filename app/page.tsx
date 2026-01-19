@@ -20,6 +20,7 @@ export default function Home() {
   const [error, setError] = useState<string | null>(null);
   const [fromLocation, setFromLocation] = useState<LocationOption | null>(null);
   const [toLocation, setToLocation] = useState<LocationOption | null>(null);
+  const [hasSearched, setHasSearched] = useState(false);
 
   async function handleSearch(params: {
     from: LocationOption;
@@ -29,6 +30,7 @@ export default function Home() {
     tripType: "oneway" | "roundtrip";
   }) {
     try {
+      setHasSearched(true);
       setLoading(true);
       setError(null);
 
@@ -74,6 +76,7 @@ export default function Home() {
           error={error}
           fromCity={fromLocation?.city}
           toCity={toLocation?.city}
+          hasSearched={hasSearched}
         />
       </main>
     </div>
