@@ -1,14 +1,19 @@
-import { Card, CardContent} from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 import StopsFilter from "../ui/FilterCard/StopsFilter";
 import DepartureTimingFilter from "../ui/FilterCard/DepartureTimingFilter";
 import ArrivalTimingFilter from "../ui/FilterCard/ArrivalTimingFilter";
-import { StopsFilterType } from "@/app/types/filters.types";
+import {
+  DepartureTimeFilter,
+  StopsFilterType,
+} from "@/app/types/filters.types";
 
 type FilterCardsProps = {
   fromCity?: string;
   toCity?: string;
   stops: StopsFilterType;
   onStopsChange: (value: StopsFilterType) => void;
+  departureTime: DepartureTimeFilter;
+  onDepartureTimeChange: (value: DepartureTimeFilter) => void;
 };
 
 export default function FilterCard({
@@ -16,6 +21,8 @@ export default function FilterCard({
   toCity,
   stops,
   onStopsChange,
+  departureTime,
+  onDepartureTimeChange,
 }: FilterCardsProps) {
   return (
     <Card className="w-[25%] p-4 flex flex-col items-center">
@@ -31,7 +38,11 @@ export default function FilterCard({
         <StopsFilter value={stops} onChange={onStopsChange} />
 
         {/* Departure Time Filter */}
-        <DepartureTimingFilter fromCity={fromCity} />
+        <DepartureTimingFilter
+          fromCity={fromCity}
+          value={departureTime}
+          onChange={onDepartureTimeChange}
+        />
 
         {/* Arrival Filter */}
         <ArrivalTimingFilter toCity={toCity} />
