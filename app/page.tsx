@@ -13,8 +13,7 @@ import type {
   DepartureTimeFilter,
   StopsFilterType,
 } from "@/app/types/filters.types";
-import { getDepartureHour } from "@/lib/getDepartureHour";
-import { getArrivalHour } from "@/lib/getArrivalHour";
+import { applyAllFilters } from "@/lib/filters";
 
 type FlightResponse = {
   data: FlightOffer[];
@@ -51,104 +50,18 @@ export default function Home() {
   const [priceRange, setPriceRange] = useState<[number, number]>([0, 0]);
   const [priceBounds, setPriceBounds] = useState<[number, number]>([0, 0]);
 
-  function applyStopsFilter(flights: FlightOffer[], filter: StopsFilterType) {
-    if (!filter || filter === "all") return flights;
-
-    return flights.filter((flight) => {
-      const segments = flight.itineraries?.[0]?.segments ?? [];
-      const stops = Math.max(segments.length - 1, 0);
-
-      switch (filter) {
-        case "nonstop":
-          return stops === 0;
-        case "1stop":
-          return stops === 1;
-        case "2plus":
-          return stops >= 2;
-        default:
-          return true;
-      }
-    });
-  }
-
-  function applyDepartureTimeFilter(
-    flights: FlightOffer[],
-    filter: DepartureTimeFilter,
-  ) {
-    if (filter === "all") return flights;
-
-    return flights.filter((flight) => {
-      const hour = getDepartureHour(flight);
-      if (hour === null) return false;
-
-      switch (filter) {
-        case "before6am":
-          return hour < 6;
-        case "6to12":
-          return hour >= 6 && hour < 12;
-        case "12to6":
-          return hour >= 12 && hour < 18;
-        case "after6pm":
-          return hour >= 18;
-        default:
-          return true;
-      }
-    });
-  }
-
-  function applyArrivalTimeFilter(
-    flights: FlightOffer[],
-    filter: ArrivalTimeFilter,
-  ) {
-    if (filter === "all") return flights;
-
-    return flights.filter((flight) => {
-      const hour = getArrivalHour(flight);
-      if (hour === null) return false;
-
-      switch (filter) {
-        case "before6am":
-          return hour < 6;
-        case "6to12":
-          return hour >= 6 && hour < 12;
-        case "12to6":
-          return hour >= 12 && hour < 18;
-        case "after6pm":
-          return hour >= 18;
-        default:
-          return true;
-      }
-    });
-  }
-
-  function applyAirlineFilter(flights: FlightOffer[], airlines: string[]) {
-    if (!airlines.length) return flights;
-
-    return flights.filter((flight) => {
-      const carrierCode = flight.itineraries?.[0]?.segments?.[0]?.carrierCode;
-      return airlines.includes(carrierCode);
-    });
-  }
-
-  function applyPriceFilter(flights: FlightOffer[], range: [number, number]) {
-    return flights.filter((flight) => {
-      const price = Number(flight.price?.total);
-      if (Number.isNaN(price)) return false;
-
-      return price >= range[0] && price <= range[1];
-    });
-  }
+  
 
   useEffect(() => {
     if (!hasSearched) return;
 
-    let filtered = allFlights;
-
-    filtered = applyStopsFilter(allFlights, stopsFilter);
-    filtered = applyAirlineFilter(filtered, airlines);
-    filtered = applyDepartureTimeFilter(filtered, departureTime);
-    filtered = applyArrivalTimeFilter(filtered, arrivalTime);
-    filtered = applyPriceFilter(filtered, priceRange);
+    const filtered = applyAllFilters(allFlights, {
+    stops: stopsFilter,
+    departureTime,
+    arrivalTime,
+    airlines,
+    priceRange,
+  });
 
     setFlights(filtered);
     setPage(1);
