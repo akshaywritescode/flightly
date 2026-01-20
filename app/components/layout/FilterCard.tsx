@@ -9,6 +9,7 @@ import {
 } from "@/app/types/filters.types";
 import AirlineFilter from "../ui/FilterCard/AirlineFilter";
 import { Dictionaries } from "@/app/types/flights.types";
+import { PriceSlider } from "../ui/FilterCard/PriceFilter";
 
 type FilterCardsProps = {
   fromCity?: string;
@@ -23,6 +24,9 @@ type FilterCardsProps = {
   airlines: string[];
   onAirlinesChange: (v: string[]) => void;
   dictionaries?: Dictionaries;
+  priceRange: [number, number];
+  priceBounds: [number, number];
+  onPriceChange: (v: [number, number]) => void;
 };
 
 export default function FilterCard({
@@ -37,7 +41,10 @@ export default function FilterCard({
   variant,
   airlines,
   onAirlinesChange,
-  dictionaries
+  dictionaries,
+  priceRange,
+  priceBounds,
+  onPriceChange
 }: FilterCardsProps) {
   return (
     <Card
@@ -58,6 +65,14 @@ export default function FilterCard({
 
       {/* Content */}
       <CardContent className="p-0 flex flex-col gap-4">
+        {/* Price Filter */}
+        <PriceSlider
+          value={priceRange}
+          min={priceBounds[0]}
+          max={priceBounds[1]}
+          onChange={onPriceChange}
+        />
+
         {/* Stops Filter */}
         <StopsFilter value={stops} onChange={onStopsChange} />
 
