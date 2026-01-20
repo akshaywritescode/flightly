@@ -146,7 +146,7 @@ export default function FlightsResultSection({
                             .map(
                               (seg) =>
                                 dictionaries?.locations?.[seg.arrival.iataCode]
-                                  ?.cityCode ?? seg.arrival.iataCode
+                                  ?.cityCode ?? seg.arrival.iataCode,
                             )
                         : [];
 
@@ -156,7 +156,7 @@ export default function FlightsResultSection({
                         departureIataCode={dep.departure.iataCode}
                         arrivalIataCode={arr.arrival.iataCode}
                         departureDateTime={formatFlightDateTime(
-                          dep.departure.at
+                          dep.departure.at,
                         )}
                         arrivalDateTime={formatFlightDateTime(arr.arrival.at)}
                         departureCity={fromCity ?? dep.departure.iataCode}
@@ -189,6 +189,7 @@ export default function FlightsResultSection({
           </div>
           {/* made filter card disappear when 1024hits */}
           <FilterCard
+            variant="sidebar"
             fromCity={fromCity}
             toCity={toCity}
             stops={stops}
@@ -201,17 +202,17 @@ export default function FlightsResultSection({
         </div>
       </section>
       {/* Mobile Filter Overlay */}
-{isFilterOpen && (
-  <div className="fixed inset-0 z-50 lg:hidden">
-    {/* Backdrop */}
-    <div
-      className="absolute inset-0 bg-black/40"
-      onClick={() => setIsFilterOpen(false)}
-    />
+      {isFilterOpen && (
+        <div className="fixed inset-0 z-50 lg:hidden">
+          {/* Backdrop */}
+          <div
+            className="absolute inset-0 bg-black/40"
+            onClick={() => setIsFilterOpen(false)}
+          />
 
-    {/* Bottom Sheet */}
-    <div
-  className="
+          {/* Bottom Sheet */}
+          <div
+            className="
     fixed bottom-0 left-0 right-0
     bg-white rounded-t-2xl
     max-h-[85vh] overflow-y-auto
@@ -219,34 +220,35 @@ export default function FlightsResultSection({
     z-50
     animate-slide-up
   "
->
-      {/* Handle */}
-      <div className="flex justify-center mb-3">
-        <div className="h-1.5 w-12 rounded-full bg-black/20" />
-      </div>
+          >
+            {/* Handle */}
+            <div className="flex justify-center mb-3">
+              <div className="h-1.5 w-12 rounded-full bg-black/20" />
+            </div>
 
-      <FilterCard
-        fromCity={fromCity}
-        toCity={toCity}
-        stops={stops}
-        onStopsChange={(v) => {
-          onStopsChange(v);
-          setIsFilterOpen(false);
-        }}
-        departureTime={departureTime}
-        onDepartureTimeChange={(v) => {
-          onDepartureTimeChange(v);
-          setIsFilterOpen(false);
-        }}
-        arrivalTime={arrivalTime}
-        onArrivalTimeChange={(v) => {
-          onArrivalTimeChange(v);
-          setIsFilterOpen(false);
-        }}
-      />
-    </div>
-  </div>
-)}
+            <FilterCard
+             variant="sheet"
+              fromCity={fromCity}
+              toCity={toCity}
+              stops={stops}
+              onStopsChange={(v) => {
+                onStopsChange(v);
+                setIsFilterOpen(false);
+              }}
+              departureTime={departureTime}
+              onDepartureTimeChange={(v) => {
+                onDepartureTimeChange(v);
+                setIsFilterOpen(false);
+              }}
+              arrivalTime={arrivalTime}
+              onArrivalTimeChange={(v) => {
+                onArrivalTimeChange(v);
+                setIsFilterOpen(false);
+              }}
+            />
+          </div>
+        </div>
+      )}
     </>
   );
 }
