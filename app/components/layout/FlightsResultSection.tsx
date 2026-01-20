@@ -15,9 +15,9 @@ import {
   DepartureTimeFilter,
   StopsFilterType,
 } from "@/app/types/filters.types";
-import { FilterIcon, Settings2Icon } from "lucide-react";
+import { Settings2Icon } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 type FlightsResultSectionProps = {
   flights: FlightOffer[];
