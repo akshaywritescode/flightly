@@ -18,6 +18,7 @@ import {
 import { Settings2Icon } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { useState } from "react";
+import PriceGraph from "../ui/PriceGraph";
 
 type FlightsResultSectionProps = {
   flights: FlightOffer[];
@@ -38,6 +39,9 @@ type FlightsResultSectionProps = {
   onArrivalTimeChange: (v: ArrivalTimeFilter) => void;
   airlines: string[];
   onAirlinesChange: (v: string[]) => void;
+  priceRange: [number, number];
+  priceBounds: [number, number];
+  onPriceRangeChange: (value: [number, number]) => void;
 };
 
 export default function FlightsResultSection({
@@ -59,6 +63,9 @@ export default function FlightsResultSection({
   onArrivalTimeChange,
   airlines,
   onAirlinesChange,
+  priceRange,
+  priceBounds,
+  onPriceRangeChange,
 }: FlightsResultSectionProps) {
   const [isFilterOpen, setIsFilterOpen] = useState(false);
 
@@ -123,6 +130,9 @@ export default function FlightsResultSection({
               <NothingHere />
             ) : (
               <>
+                <div className="mb-4">
+                  <PriceGraph flights={flights} />
+                </div>
                 <ul className="space-y-4 lg:h-screen overflow-y-auto thin-scrollbar">
                   {paginatedFlights.map((flight, index) => {
                     const segments = flight.itineraries?.[0]?.segments ?? [];
@@ -205,6 +215,9 @@ export default function FlightsResultSection({
             onArrivalTimeChange={onArrivalTimeChange}
             airlines={airlines}
             onAirlinesChange={onAirlinesChange}
+            priceRange={priceRange}
+            priceBounds={priceBounds}
+            onPriceChange={onPriceRangeChange}
           />
         </div>
       </section>
@@ -255,6 +268,9 @@ export default function FlightsResultSection({
               }}
               airlines={airlines}
               onAirlinesChange={onAirlinesChange}
+              priceRange={priceRange}
+              priceBounds={priceBounds}
+              onPriceChange={onPriceRangeChange}
             />
           </div>
         </div>

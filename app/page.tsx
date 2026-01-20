@@ -48,6 +48,9 @@ export default function Home() {
 
   const [airlines, setAirlines] = useState<AirlineFilterType>([]);
 
+  const [priceRange, setPriceRange] = useState<[number, number]>([0, 0]);
+  const [priceBounds, setPriceBounds] = useState<[number, number]>([0, 0]);
+
   function applyStopsFilter(flights: FlightOffer[], filter: StopsFilterType) {
     if (!filter || filter === "all") return flights;
 
@@ -127,6 +130,15 @@ export default function Home() {
     });
   }
 
+  function applyPriceFilter(flights: FlightOffer[], range: [number, number]) {
+    return flights.filter((flight) => {
+      const price = Number(flight.price?.total);
+      if (Number.isNaN(price)) return false;
+
+      return price >= range[0] && price <= range[1];
+    });
+  }
+
   useEffect(() => {
     if (!hasSearched) return;
 
@@ -136,16 +148,18 @@ export default function Home() {
     filtered = applyAirlineFilter(filtered, airlines);
     filtered = applyDepartureTimeFilter(filtered, departureTime);
     filtered = applyArrivalTimeFilter(filtered, arrivalTime);
+    filtered = applyPriceFilter(filtered, priceRange);
 
     setFlights(filtered);
     setPage(1);
   }, [
-    stopsFilter,
-    airlines,
-    departureTime,
-    arrivalTime,
     allFlights,
     hasSearched,
+    stopsFilter,
+    departureTime,
+    arrivalTime,
+    priceRange,
+    airlines
   ]);
 
   useEffect(() => {
@@ -183,6 +197,16 @@ export default function Home() {
       if (!res.ok) throw new Error("Failed to fetch flights");
 
       const data: FlightResponse = await res.json();
+
+      const prices = data.data
+        .map((f) => Number(f.price?.total))
+        .filter((p) => !Number.isNaN(p));
+
+      const min = Math.min(...prices);
+      const max = Math.max(...prices);
+
+      setPriceBounds([min, max]);
+      setPriceRange([min, max]);
 
       setAllFlights(data.data);
       setFlights(data.data);
@@ -226,6 +250,9 @@ export default function Home() {
           onArrivalTimeChange={setArrivalTime}
           airlines={airlines}
           onAirlinesChange={setAirlines}
+          priceRange={priceRange}
+          priceBounds={priceBounds}
+          onPriceRangeChange={setPriceRange}
         />
       </main>
     </div>
