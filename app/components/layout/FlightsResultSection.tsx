@@ -36,6 +36,8 @@ type FlightsResultSectionProps = {
   onDepartureTimeChange: (v: DepartureTimeFilter) => void;
   arrivalTime: ArrivalTimeFilter;
   onArrivalTimeChange: (v: ArrivalTimeFilter) => void;
+  airlines: string[];
+  onAirlinesChange: (v: string[]) => void;
 };
 
 export default function FlightsResultSection({
@@ -55,6 +57,8 @@ export default function FlightsResultSection({
   onDepartureTimeChange,
   arrivalTime,
   onArrivalTimeChange,
+  airlines,
+  onAirlinesChange,
 }: FlightsResultSectionProps) {
   const [isFilterOpen, setIsFilterOpen] = useState(false);
 
@@ -119,7 +123,7 @@ export default function FlightsResultSection({
               <NothingHere />
             ) : (
               <>
-                <ul className="space-y-4 max-h-[calc(100vh-12rem)] lg:h-screen overflow-y-auto thin-scrollbar">
+                <ul className="space-y-4 lg:h-screen overflow-y-auto thin-scrollbar">
                   {paginatedFlights.map((flight, index) => {
                     const segments = flight.itineraries?.[0]?.segments ?? [];
                     if (!segments.length) return null;
@@ -190,6 +194,7 @@ export default function FlightsResultSection({
           {/* made filter card disappear when 1024hits */}
           <FilterCard
             variant="sidebar"
+            dictionaries={dictionaries}
             fromCity={fromCity}
             toCity={toCity}
             stops={stops}
@@ -198,6 +203,8 @@ export default function FlightsResultSection({
             onDepartureTimeChange={onDepartureTimeChange}
             arrivalTime={arrivalTime}
             onArrivalTimeChange={onArrivalTimeChange}
+            airlines={airlines}
+            onAirlinesChange={onAirlinesChange}
           />
         </div>
       </section>
@@ -227,7 +234,8 @@ export default function FlightsResultSection({
             </div>
 
             <FilterCard
-             variant="sheet"
+              variant="sheet"
+              dictionaries={dictionaries}
               fromCity={fromCity}
               toCity={toCity}
               stops={stops}
@@ -245,6 +253,8 @@ export default function FlightsResultSection({
                 onArrivalTimeChange(v);
                 setIsFilterOpen(false);
               }}
+              airlines={airlines}
+              onAirlinesChange={onAirlinesChange}
             />
           </div>
         </div>
