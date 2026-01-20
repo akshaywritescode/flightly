@@ -13,8 +13,6 @@ import type {
   DepartureTimeFilter,
   StopsFilterType,
 } from "@/app/types/filters.types";
-import { getDepartureHour } from "@/lib/getDepartureHour";
-import { getArrivalHour } from "@/lib/getArrivalHour";
 import { applyAllFilters } from "@/lib/filters";
 
 type FlightResponse = {
