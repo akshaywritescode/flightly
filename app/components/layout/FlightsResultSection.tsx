@@ -18,6 +18,7 @@ import {
 import { Settings2Icon } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { useState } from "react";
+import PriceGraph from "../ui/PriceGraph";
 
 type FlightsResultSectionProps = {
   flights: FlightOffer[];
@@ -64,7 +65,7 @@ export default function FlightsResultSection({
   onAirlinesChange,
   priceRange,
   priceBounds,
-  onPriceRangeChange
+  onPriceRangeChange,
 }: FlightsResultSectionProps) {
   const [isFilterOpen, setIsFilterOpen] = useState(false);
 
@@ -129,6 +130,9 @@ export default function FlightsResultSection({
               <NothingHere />
             ) : (
               <>
+                <div className="mb-4">
+                  <PriceGraph flights={flights} />
+                </div>
                 <ul className="space-y-4 lg:h-screen overflow-y-auto thin-scrollbar">
                   {paginatedFlights.map((flight, index) => {
                     const segments = flight.itineraries?.[0]?.segments ?? [];
