@@ -177,7 +177,7 @@ export default function Home() {
     <div className="h-screen w-auto">
       <Header />
 
-      <main className="m-auto min-h-screen max-w-[1200px] bg-[#edebeb] px-2 pt-16 sm:pt-24">
+      <main className="m-auto min-h-screen max-w-[1200px] bg-[#edebeb] px-3 pt-16 sm:pt-24">
         <FlightSearchCard
           onSearch={handleSearch}
           fromLocation={fromLocation}

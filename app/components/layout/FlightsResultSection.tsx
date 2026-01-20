@@ -76,7 +76,7 @@ export default function FlightsResultSection({
 
   return (
     <>
-      <section className="mt-20 w-full">
+      <section className="mt-10 w-full">
         <div className="ml-1 mb-3 flex items-start justify-between gap-4">
           <div>
             <h1 className="font-semibold text-base sm:text-lg">
