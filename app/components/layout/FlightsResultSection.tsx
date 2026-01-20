@@ -36,6 +36,8 @@ type FlightsResultSectionProps = {
   onDepartureTimeChange: (v: DepartureTimeFilter) => void;
   arrivalTime: ArrivalTimeFilter;
   onArrivalTimeChange: (v: ArrivalTimeFilter) => void;
+  airlines: string[];
+  onAirlinesChange: (v: string[]) => void;
 };
 
 export default function FlightsResultSection({
@@ -55,6 +57,8 @@ export default function FlightsResultSection({
   onDepartureTimeChange,
   arrivalTime,
   onArrivalTimeChange,
+  airlines,
+  onAirlinesChange,
 }: FlightsResultSectionProps) {
   const [isFilterOpen, setIsFilterOpen] = useState(false);
 
@@ -76,7 +80,7 @@ export default function FlightsResultSection({
 
   return (
     <>
-      <section className="mt-20 w-full">
+      <section className="mt-10 w-full">
         <div className="ml-1 mb-3 flex items-start justify-between gap-4">
           <div>
             <h1 className="font-semibold text-base sm:text-lg">
@@ -119,7 +123,7 @@ export default function FlightsResultSection({
               <NothingHere />
             ) : (
               <>
-                <ul className="space-y-4 max-h-[calc(100vh-12rem)] lg:h-screen overflow-y-auto thin-scrollbar">
+                <ul className="space-y-4 lg:h-screen overflow-y-auto thin-scrollbar">
                   {paginatedFlights.map((flight, index) => {
                     const segments = flight.itineraries?.[0]?.segments ?? [];
                     if (!segments.length) return null;
@@ -146,7 +150,7 @@ export default function FlightsResultSection({
                             .map(
                               (seg) =>
                                 dictionaries?.locations?.[seg.arrival.iataCode]
-                                  ?.cityCode ?? seg.arrival.iataCode
+                                  ?.cityCode ?? seg.arrival.iataCode,
                             )
                         : [];
 
@@ -156,7 +160,7 @@ export default function FlightsResultSection({
                         departureIataCode={dep.departure.iataCode}
                         arrivalIataCode={arr.arrival.iataCode}
                         departureDateTime={formatFlightDateTime(
-                          dep.departure.at
+                          dep.departure.at,
                         )}
                         arrivalDateTime={formatFlightDateTime(arr.arrival.at)}
                         departureCity={fromCity ?? dep.departure.iataCode}
@@ -189,6 +193,8 @@ export default function FlightsResultSection({
           </div>
           {/* made filter card disappear when 1024hits */}
           <FilterCard
+            variant="sidebar"
+            dictionaries={dictionaries}
             fromCity={fromCity}
             toCity={toCity}
             stops={stops}
@@ -197,21 +203,23 @@ export default function FlightsResultSection({
             onDepartureTimeChange={onDepartureTimeChange}
             arrivalTime={arrivalTime}
             onArrivalTimeChange={onArrivalTimeChange}
+            airlines={airlines}
+            onAirlinesChange={onAirlinesChange}
           />
         </div>
       </section>
       {/* Mobile Filter Overlay */}
-{isFilterOpen && (
-  <div className="fixed inset-0 z-50 lg:hidden">
-    {/* Backdrop */}
-    <div
-      className="absolute inset-0 bg-black/40"
-      onClick={() => setIsFilterOpen(false)}
-    />
+      {isFilterOpen && (
+        <div className="fixed inset-0 z-50 lg:hidden">
+          {/* Backdrop */}
+          <div
+            className="absolute inset-0 bg-black/40"
+            onClick={() => setIsFilterOpen(false)}
+          />
 
-    {/* Bottom Sheet */}
-    <div
-  className="
+          {/* Bottom Sheet */}
+          <div
+            className="
     fixed bottom-0 left-0 right-0
     bg-white rounded-t-2xl
     max-h-[85vh] overflow-y-auto
@@ -219,34 +227,38 @@ export default function FlightsResultSection({
     z-50
     animate-slide-up
   "
->
-      {/* Handle */}
-      <div className="flex justify-center mb-3">
-        <div className="h-1.5 w-12 rounded-full bg-black/20" />
-      </div>
+          >
+            {/* Handle */}
+            <div className="flex justify-center mb-3">
+              <div className="h-1.5 w-12 rounded-full bg-black/20" />
+            </div>
 
-      <FilterCard
-        fromCity={fromCity}
-        toCity={toCity}
-        stops={stops}
-        onStopsChange={(v) => {
-          onStopsChange(v);
-          setIsFilterOpen(false);
-        }}
-        departureTime={departureTime}
-        onDepartureTimeChange={(v) => {
-          onDepartureTimeChange(v);
-          setIsFilterOpen(false);
-        }}
-        arrivalTime={arrivalTime}
-        onArrivalTimeChange={(v) => {
-          onArrivalTimeChange(v);
-          setIsFilterOpen(false);
-        }}
-      />
-    </div>
-  </div>
-)}
+            <FilterCard
+              variant="sheet"
+              dictionaries={dictionaries}
+              fromCity={fromCity}
+              toCity={toCity}
+              stops={stops}
+              onStopsChange={(v) => {
+                onStopsChange(v);
+                setIsFilterOpen(false);
+              }}
+              departureTime={departureTime}
+              onDepartureTimeChange={(v) => {
+                onDepartureTimeChange(v);
+                setIsFilterOpen(false);
+              }}
+              arrivalTime={arrivalTime}
+              onArrivalTimeChange={(v) => {
+                onArrivalTimeChange(v);
+                setIsFilterOpen(false);
+              }}
+              airlines={airlines}
+              onAirlinesChange={onAirlinesChange}
+            />
+          </div>
+        </div>
+      )}
     </>
   );
 }

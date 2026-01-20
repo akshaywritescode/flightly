@@ -8,6 +8,7 @@ import FlightsResultSection from "./components/layout/FlightsResultSection";
 import type { LocationOption } from "@/app/types/location.types";
 import type { FlightOffer, Dictionaries } from "@/app/types/flights.types";
 import type {
+  AirlineFilterType,
   ArrivalTimeFilter,
   DepartureTimeFilter,
   StopsFilterType,
@@ -45,6 +46,8 @@ export default function Home() {
 
   const [arrivalTime, setArrivalTime] = useState<ArrivalTimeFilter>("all");
 
+  const [airlines, setAirlines] = useState<AirlineFilterType>([]);
+
   function applyStopsFilter(flights: FlightOffer[], filter: StopsFilterType) {
     if (!filter || filter === "all") return flights;
 
@@ -67,7 +70,7 @@ export default function Home() {
 
   function applyDepartureTimeFilter(
     flights: FlightOffer[],
-    filter: DepartureTimeFilter
+    filter: DepartureTimeFilter,
   ) {
     if (filter === "all") return flights;
 
@@ -92,7 +95,7 @@ export default function Home() {
 
   function applyArrivalTimeFilter(
     flights: FlightOffer[],
-    filter: ArrivalTimeFilter
+    filter: ArrivalTimeFilter,
   ) {
     if (filter === "all") return flights;
 
@@ -115,18 +118,35 @@ export default function Home() {
     });
   }
 
+  function applyAirlineFilter(flights: FlightOffer[], airlines: string[]) {
+    if (!airlines.length) return flights;
+
+    return flights.filter((flight) => {
+      const carrierCode = flight.itineraries?.[0]?.segments?.[0]?.carrierCode;
+      return airlines.includes(carrierCode);
+    });
+  }
+
   useEffect(() => {
     if (!hasSearched) return;
 
     let filtered = allFlights;
 
     filtered = applyStopsFilter(allFlights, stopsFilter);
+    filtered = applyAirlineFilter(filtered, airlines);
     filtered = applyDepartureTimeFilter(filtered, departureTime);
     filtered = applyArrivalTimeFilter(filtered, arrivalTime);
 
     setFlights(filtered);
     setPage(1);
-  }, [stopsFilter, allFlights, hasSearched, departureTime, arrivalTime]);
+  }, [
+    stopsFilter,
+    airlines,
+    departureTime,
+    arrivalTime,
+    allFlights,
+    hasSearched,
+  ]);
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: "smooth" });
@@ -150,6 +170,7 @@ export default function Home() {
       setStopsFilter("all");
       setArrivalTime("all");
       setDepartureTime("all");
+      setAirlines([]);
 
       const query = new URLSearchParams({
         origin: params.from.iataCode,
@@ -177,7 +198,7 @@ export default function Home() {
     <div className="h-screen w-auto">
       <Header />
 
-      <main className="m-auto min-h-screen max-w-[1200px] bg-[#edebeb] px-2 pt-16 sm:pt-24">
+      <main className="m-auto max-w-[1200px] bg-[#edebeb] px-3 pt-16 sm:pt-24">
         <FlightSearchCard
           onSearch={handleSearch}
           fromLocation={fromLocation}
@@ -203,6 +224,8 @@ export default function Home() {
           onDepartureTimeChange={setDepartureTime}
           arrivalTime={arrivalTime}
           onArrivalTimeChange={setArrivalTime}
+          airlines={airlines}
+          onAirlinesChange={setAirlines}
         />
       </main>
     </div>

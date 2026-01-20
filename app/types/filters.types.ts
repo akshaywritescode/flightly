@@ -13,4 +13,6 @@ export type ArrivalTimeFilter =
   | "6to12"
   | "12to6"
   | "after6pm";
-  
+
+export type AirlineFilterType = string[];
+// example: ["AI", "6E"]
