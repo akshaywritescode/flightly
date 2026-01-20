@@ -14,6 +14,7 @@ import {
   TrainIcon,
   Palmtree,
   Menu,
+  X,
 } from "lucide-react";
 
 const servicesData = [
@@ -96,7 +97,7 @@ export default function Header() {
         </div>
         <div className="flex items-center gap-4">
           {/* Desktop icons */}
-          <div className="hidden md:flex items-center gap-4">
+          <div className="flex items-center gap-4">
             <BellDot className="text-black/70" size={20} />
             <Settings className="text-black/70" size={20} />
             <div className="w-8 h-8 overflow-hidden rounded-full">
@@ -113,7 +114,7 @@ export default function Header() {
 
           {/* Mobile hamburger */}
           <button onClick={() => setOpen(!open)} className="md:hidden">
-            <Menu size={22} />
+            {open ? <X size={22} /> : <Menu size={22} />}
           </button>
         </div>
       </Card>
