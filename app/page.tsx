@@ -186,7 +186,7 @@ export default function Home() {
           onToChange={setToLocation}
         />
 
-        {/* <FlightsResultSection
+        <FlightsResultSection
           flights={flights}
           dictionaries={dictionaries}
           loading={loading}
@@ -203,7 +203,7 @@ export default function Home() {
           onDepartureTimeChange={setDepartureTime}
           arrivalTime={arrivalTime}
           onArrivalTimeChange={setArrivalTime}
-        /> */}
+        />
       </main>
     </div>
   );
